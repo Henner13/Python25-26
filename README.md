@@ -51,9 +51,9 @@ Si deseas probar estos ejercicios de forma local, sigue estos pasos:
 ¡Las sugerencias son siempre bienvenidas! Si tienes una solución más eficiente o un ejercicio interesante que quieras añadir:
 
 1. Haz un **Fork** del proyecto.
-2. Crea una **Rama** para tu mejora (`git checkout -b feature/MejoraIncreible`).
+2. Crea una **Rama** para tu mejora (`git checkout -b Python25-26/Mejora`).
 3. Haz **Commit** de tus cambios (`git commit -m 'Añadido ejercicio de recursión'`).
-4. Dale al **Push** (`git push origin feature/MejoraIncreible`).
+4. Dale al **Push** (`git push origin Python25-26/Mejora`).
 5. Abre un **Pull Request**.
 
 ---
