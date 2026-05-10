@@ -1,10 +1,12 @@
-# Crea una aplicación en consola donde se permitan gestionar las calificaciones de la asignatura.
-# Para ello, mediante un menú permite las siguientes acciones:
-# 1. Introducir notas: el usuario introducirá notas hasta que meta un -1. Esto indicará que la introducción ha terminado. Una vez realizado esto volverá a aparecer el menú.
-# 2. Listar notas: se mostrarán todas las notas de una en una.
-# 3. Obtener extremos: se mostrarán la nota más alta y baja.
-# 4. Obtener información: se mostrarán los siguientes datos sobre las notas: total introducidas, número suspensos, número aprobados, nota media.
-# 5. Salir
+"""
+Crea una aplicación en consola donde se permitan gestionar las calificaciones de la asignatura.
+Para ello, mediante un menú permite las siguientes acciones:
+1. Introducir notas: el usuario introducirá notas hasta que meta un -1. Esto indicará que la introducción ha terminado. Una vez realizado esto volverá a aparecer el menú.
+2. Listar notas: se mostrarán todas las notas de una en una.
+3. Obtener extremos: se mostrarán la nota más alta y baja.
+4. Obtener información: se mostrarán los siguientes datos sobre las notas: total introducidas, número suspensos, número aprobados, nota media.
+5. Salir
+"""
 
 opcion = 0
 listaNotas = []
