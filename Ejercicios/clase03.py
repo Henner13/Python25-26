@@ -1,18 +1,12 @@
-# Crea una aplicación en python que permita gestionar los proyectos de una empresa.
-# Para ello sigue estos pasos:
-# • Pregunta al usuario cuantos proyectos va a registrar
-# • Por cada proyecto, pide el código, nombre, responsable y presupuesto del proyecto
-# • Guarda la información de todos los proyectos en un diccionario 
-# (puedes utilizar el código como la clave y como valor puedes utilizar otro diccionario o lista 
-# • Muestra por consola solo el nombre y presupuesto de cada uno de los proyectos 
-# Conclusiones Cuando se realiza un código de programación,
-# se ha comprobado a lo largo de la unidad que las estructuras de control representan 
-# un elemento básico para poder modelar y “reconducir” el código dependiendo de condiciones lógicas
-# o ejecuciones recurrentes.
-# Además, también hemos podido ver que el uso de estructuras de datos permite juntar diferentes tipos de datos
-# en un mismo elemento para poder así. 
-# gestionar mejor la información y poder realizar operaciones sobre ella.
-
+"""
+Crea una aplicación en python que permita gestionar los proyectos de una empresa.
+Para ello sigue estos pasos:
+• Pregunta al usuario cuantos proyectos va a registrar
+• Por cada proyecto, pide el código, nombre, responsable y presupuesto del proyecto
+• Guarda la información de todos los proyectos en un diccionario 
+(puedes utilizar el código como la clave y como valor puedes utilizar otro diccionario o lista 
+• Muestra por consola solo el nombre y presupuesto de cada uno de los proyectos 
+"""
 def main():
     proyectos = {}
     try:
