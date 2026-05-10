@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toyota C-HR Sim</title>
+    <style>
+        :root {
+            --toyota-blue: #00e5ff;
+            --piano-black: #050505;
+            --off-grey: #222;
+        }
+
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Salpicadero */
+        .dashboard {
+            width: 850px;
+            height: 380px;
+            background: linear-gradient(to bottom, #2a2a2a 0%, #111 100%);
+            border-radius: 60px 60px 20px 20px;
+            position: relative;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9);
+            border-bottom: 10px solid #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Línea azul decorativa del C-HR */
+        .blue-trim {
+            position: absolute;
+            bottom: 500px;
+            width: 100%;
+            height: 2px;
+            background: var(--toyota-blue);
+            box-shadow: 0 0 15px var(--toyota-blue);
+            opacity: 0.5;
+        }
+
+        /* Cuadro de instrumentos */
+        .instrument-cluster {
+            width: 450px;
+            height: 220px;
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            border: 4px solid #333;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .speed-number {
+            font-size: 90px;
+            font-weight: bold;
+            color: var(--off-grey);
+            transition: all 0.4s ease;
+        }
+
+        .speed-number.active {
+            color: white;
+            text-shadow: 0 0 20px var(--toyota-blue);
+        }
+
+        .speed-unit {
+            color: var(--toyota-blue);
+            font-size: 14px;
+            margin-top: -10px;
+            letter-spacing: 2px;
+        }
+
+        /* Intermitentes */
+        .turn-signal {
+            position: absolute;
+            top: 25px;
+            font-size: 45px;
+            color: #1a1a1a;
+            transition: 0.2s;
+        }
+
+        #sig-izq {
+            left: 50px;
+        }
+
+        #sig-der {
+            right: 50px;
+        }
+
+        .turn-signal.active {
+            color: #ffcc00;
+            text-shadow: 0 0 20px #ffcc00;
+            animation: blinker-anim 0.8s infinite;
+        }
+
+        @keyframes blinker-anim {
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        /* Panel de Control */
+        .controls {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 160px);
+            gap: 15px;
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #333;
+        }
+
+        .input-group {
+            grid-column: span 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 60px;
+            background: #000;
+            border: 1px solid var(--toyota-blue);
+            color: white;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #333;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-power {
+            grid-column: span 3;
+            background: #2e7d32;
+        }
+
+        .btn-power.on {
+            background: #c62828;
+        }
+
+
+        #ev-label {
+            position: absolute;
+            bottom: 20px;
+            color: var(--toyota-blue);
+            font-size: 12px;
+            border: 1px solid var(--toyota-blue);
+            padding: 2px 10px;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard">
+        <div id="sig-izq" class="turn-signal">⬅</div>
+        <div id="sig-der" class="turn-signal">➡</div>
+
+        <div class="instrument-cluster">
+            <div id="speedo" class="speed-number">0</div>
+            <div class="speed-unit">km/h</div>
+            <div id="ev-label">READY | EV MODE</div>
+        </div>
+
+        <div class="blue-trim"></div>
+    </div>
+
+    <div class="controls">
+        <div class="input-group">
+            <label>INCREMENTO VELOCIDAD:</label>
+            <input type="number" id="inc-val" value="10" min="1">
+        </div>
+
+        <button id="pwr-btn" class="btn-power" onclick="enviarAccion('arrancar_apagar')">ARRANCAR</button>
+
+        <button onclick="enviarAccion('acelerar')">ACELERAR</button>
+        <button onclick="enviarAccion('frenar')">FRENAR</button>
+        <button onclick="hacerPitar()">PITAR 📢</button>
+
+        <button onclick="enviarAccion('intermitente_izq')">GIRAR IZQ</button>
+        <button onclick="enviarAccion('intermitente_der')">GIRAR DER</button>
+    </div>
+
+    <audio id="audio-claxon" src="{{ url_for('static', filename='claxon-de-la-cucaracha.mp3') }}"></audio>
+
+    <script>
+        let cocheEncendido = false;
+
+        async function enviarAccion(nombreComando) {
+            const incremento = document.getElementById('inc-val').value;
+
+            try {
+                const res = await fetch('/accion', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        comando: nombreComando,
+                        incremento: incremento
+                    })
+                });
+
+                if (res.status === 403) {
+                    alert("¡Acción denegada! El coche está apagado.");
+                    return;
+                }
+
+                const data = await res.json();
+                actualizarPanel(data);
+            } catch (error) {
+                console.error("Error de comunicación:", error);
+            }
+        }
+
+        function actualizarPanel(data) {
+            cocheEncendido = data.encendido;
+            const speedo = document.getElementById('speedo');
+            const pwrBtn = document.getElementById('pwr-btn');
+            const evLabel = document.getElementById('ev-label');
+
+            // Velocidad
+            speedo.innerText = data.velocidad;
+
+            // Estado visual del motor
+            if (data.encendido) {
+                speedo.classList.add('active');
+                pwrBtn.innerText = "APAGAR";
+                pwrBtn.classList.add('on');
+                evLabel.style.display = 'block';
+            } else {
+                speedo.classList.remove('active');
+                pwrBtn.innerText = "ARRANCAR";
+                pwrBtn.classList.remove('on');
+                evLabel.style.display = 'none';
+            }
+
+            // Intermitentes (izq / der)
+            document.getElementById('sig-izq').classList.toggle('active', data.intermitentes === 'izq');
+            document.getElementById('sig-der').classList.toggle('active', data.intermitentes === 'der');
+        }
+
+        function hacerPitar() {
+            if (cocheEncendido) {
+                document.getElementById('audio-claxon').play();
+            } else {
+                alert("El claxon no suena con el coche apagado.");
+            }
+        }
+    </script>
+</body>
+
+</html>
