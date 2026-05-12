@@ -65,5 +65,3 @@ Este proyecto está bajo la licencia MIT. ¡Siéntete libre de usar el código p
 ---
 ## 👨‍💻 Author
 **Henenr Martin Jaschke**
-
-```
