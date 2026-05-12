@@ -14,7 +14,7 @@ Si deseas probar estos ejercicios de forma local, sigue estos pasos:
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone [https://github.com/Henner13/Python25-26.git](https://github.com/Henner13/Python25-26.git)
+    git clone https://github.com/Henner13/Python25-26.git
     ```
 2.  **Entra a la carpeta:**
     ```bash
